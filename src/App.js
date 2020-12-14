@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { FaQuoteRight } from "react-icons/fa";
+import data from "./data";
+import Slide from "./Slide";
 
 function App() {
+  const [index, setIndex] = useState(0);
+  const [people, setPoeple] = useState(data);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <article>
+      <div>
+        <img
+          className="person-img"
+          src={people[index].image}
+          alt={people[index].name}
+        />
+        <h2>{people[index].name}</h2>
+        <p className="title">{people[index].title}</p>
+        <p className="text">{people[index].quote}</p>
+        <FaQuoteRight className="icon" />
+      </div>
+      <div>
+        <Slide index={index} people={people} setIndex={setIndex} />
+      </div>
+    </article>
   );
 }
 
