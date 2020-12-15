@@ -1,24 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import data from "./data";
 
 function App() {
+  const [count, setCount] = useState(1);
+  const [text, setText] = useState([]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (count > 8) {
+      setText(data.slice(0, 8));
+      return;
+    }
+    if (count <= 0) {
+      setText(data.slice(0, 1));
+      return;
+    }
+    setText(data.slice(0, count));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section className="section-center" onSubmit={handleSubmit}>
+      <h3>Generate great Lorem</h3>
+      <form className="lorem-form">
+        <label htmlFor="amount">Paragraph : </label>
+        <input
+          type="number"
+          id="amount"
+          name="amount"
+          value={count}
+          onChange={(e) => setCount(e.target.value)}
+        />
+        <button className="btn" type="submit">
+          Generate
+        </button>
+      </form>
+      <article className="lorem-text">
+        {text.map((item, index) => {
+          return <p key={index}>{item}</p>;
+        })}
+      </article>
+    </section>
   );
 }
 
